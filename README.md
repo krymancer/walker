@@ -36,9 +36,34 @@
 
 ## Usage
 
-1. Copy `{flavor}.css` and `{flavor}.toml` to `~/.config/walker/themes/`.
-2. Search for the line with `theme=` in `~/.config/walker/config`.
-3. Set it to `theme={flavor}` example: `theme=mocha`.
+### Manual
+
+1. Copy the `catppuccin-{flavor}` directory to `~/.config/walker/themes/`.
+2. Set `theme = "catppuccin-{flavor}"` in `~/.config/walker/config.toml`.
+
+Example for Mocha:
+```sh
+cp -r themes/catppuccin-mocha ~/.config/walker/themes/
+```
+```toml
+# ~/.config/walker/config.toml
+theme = "catppuccin-mocha"
+```
+
+### Home Manager (NixOS)
+
+```nix
+programs.walker = {
+  enable = true;
+  config.theme = "catppuccin-mocha";
+  themes."catppuccin-mocha" = {
+    style = builtins.readFile ./themes/catppuccin-mocha/style.css;
+  };
+};
+```
+
+> **Note:** The old `.css` + `.toml` flat-file format is no longer supported as of walker's theme system rewrite.
+> Themes now live in a directory under `~/.config/walker/themes/{name}/style.css`.
 
 ## 💝 Thanks to
 
